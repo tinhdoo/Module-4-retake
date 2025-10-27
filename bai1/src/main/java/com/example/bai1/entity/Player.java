@@ -4,7 +4,7 @@ public class Player {
     private String code;
     private String name;
     private String dob;
-    private String experince;
+    private String experience;
     private String position;
     private String image;
 
@@ -15,7 +15,7 @@ public class Player {
         this.code = code;
         this.name = name;
         this.dob = dob;
-        this.experince = experince;
+        this.experience = experince;
         this.position = position;
         this.image = image;
     }
@@ -44,12 +44,12 @@ public class Player {
         this.dob = dob;
     }
 
-    public String getExperince() {
-        return experince;
+    public String getExperience() {
+        return experience;
     }
 
-    public void setExperince(String experince) {
-        this.experince = experince;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
     public String getPosition() {
