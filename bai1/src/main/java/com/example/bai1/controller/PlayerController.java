@@ -9,12 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 public class PlayerController {
     @GetMapping("/player")
     public ModelAndView getPlayerDetails() {
-        Player player = new Player("1", "Lionel Messi", "1987-06-24", "18 years", "Forward", "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg");
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("player", player);
-        return modelAndView;
-
+        Player player = new Player(
+                "1", "Lionel Messi", "1987-06-24",
+                "18 years", "Forward",
+                "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg"
+        );
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("player", player);
+        return mav;
     }
 
-    
+    @GetMapping("/")
+    public String redirectToPlayer() {
+        return "redirect:/player";
+    }
 }

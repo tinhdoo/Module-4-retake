@@ -5,7 +5,7 @@
                              https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
-    <!-- Nạp applicationContext.xml -->
+    <!-- Load application context -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -15,7 +15,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <!-- UTF-8 Filter (chuẩn, thay vì thẻ request-character-encoding vốn không hợp lệ) -->
+    <!-- UTF-8 filter -->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -37,7 +37,6 @@
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!-- Mặc định Spring sẽ tìm /WEB-INF/dispatcher-servlet.xml -->
         <load-on-startup>1</load-on-startup>
     </servlet>
 
