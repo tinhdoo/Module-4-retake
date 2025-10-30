@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/header :: head"></head>
+<body>
+<div th:replace="layout/header :: header"></div>
+<h2> Thêm cầu thủ </h2>
+<form action="/players/add" method="post" th:object="${player}">
+<input th:field="*{code}" placeholder="Nhập mã cầu thủ"><br>
+<input th:field="*{name}" placeholder="Nhập tên"><br>
+<input th:field="*{dob}" placeholder="Nhập ngày sinh"><br>
+<input th:field="*{experience}" placeholder="Kinh nghiệm"><br>
+<input th:field="*{position}" placeholder="Nhập vị trí"><br>
+<input th:field="*{image}" placeholder="Link ảnh"><br>
+  <button>Lưu</button>
+</form>
+
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</html>
