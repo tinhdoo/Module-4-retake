@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class PlayerServiceImpl implements IPlayerService {
+public class PlayerService implements IPlayerService {
     private static final List<Player> players = new ArrayList<>();
 
     static {
