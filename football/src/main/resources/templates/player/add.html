@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/header :: head">
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
+
+<div class="container my-4">
+  <div class="row">
+    <div class="col-lg-6 col-md-8 mx-auto">
+
+      <h2 class="mb-3">Thêm cầu thủ mới</h2>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4"> <form th:action="@{/players/add}" method="post" th:object="${player}">
+
+          <div class="mb-3">
+            <label for="code" class="form-label">Mã cầu thủ</label>
+            <input type="text" th:field="*{code}" class="form-control" id="code" placeholder="Nhập mã cầu thủ">
+          </div>
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Họ tên</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Nhập tên">
+          </div>
+
+          <div class="mb-3">
+            <label for="dob" class="form-label">Ngày sinh</label>
+            <input type="date" th:field="*{dob}" class="form-control" id="dob">
+          </div>
+
+          <div class="mb-3">
+            <label for="experience" class="form-label">Kinh nghiệm</label>
+            <input type="text" th:field="*{experience}" class="form-control" id="experience" placeholder="Kinh nghiệm">
+          </div>
+
+          <div class="mb-3">
+            <label for="position" class="form-label">Vị trí</label>
+            <input type="text" th:field="*{position}" class="form-control" id="position" placeholder="Nhập vị trí">
+          </div>
+
+          <div class="mb-3">
+            <label for="image" class="form-label">Link ảnh</label>
+            <input type="text" th:field="*{image}" class="form-control" id="image" placeholder="https://example.com/image.png">
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <a href="/players" class="btn btn-outline-secondary me-md-2">Hủy</a>
+            <button type="submit" class="btn btn-primary">Lưu lại</button>
+          </div>
+
+        </form>
+        </div> </div> </div> </div> </div> <div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>

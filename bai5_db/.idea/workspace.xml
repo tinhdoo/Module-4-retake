@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a5b583c3-b5a5-415f-af20-7e8ebf59cd54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +70,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/Codegym/module4/ss6/updated-products",
+    "last_opened_file_path": "D:/Codegym/module4_retake/bai5_db",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -264,6 +263,7 @@
       <workItem from="1761832565240" duration="57000" />
       <workItem from="1761832668239" duration="718000" />
       <workItem from="1761875834028" duration="3838000" />
+      <workItem from="1762180376369" duration="792000" />
     </task>
     <servers />
   </component>
