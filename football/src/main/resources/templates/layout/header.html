@@ -23,6 +23,15 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li>
+                    <form th:action="@{/players/search}" method="get" class="d-flex mb-3">
+                        <input type="text" name="keyword" th:value="${keyword}" placeholder="Nhập tên cầu thủ" class="form-control me-2" />
+                        <input type="date" name="startDate" th:value="${startDate}" class="form-control me-2" />
+                        <input type="date" name="endDate" th:value="${endDate}" class="form-control me-2" />
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </form>
+
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/players}">Danh sách cầu thủ</a>
                 </li>

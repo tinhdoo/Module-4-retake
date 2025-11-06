@@ -3,15 +3,14 @@ package com.example.football.controller;
 import com.example.football.entity.Player;
 import com.example.football.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Controller
@@ -26,11 +25,17 @@ public class PlayerController {
     }
 
     @GetMapping("/players")
-    public ModelAndView listPlayers() {
-        ModelAndView mv = new ModelAndView("player/list");
-        mv.addObject("players", playerService.getAll());
-        return mv;
+    public String listPlayers(@RequestParam(defaultValue = "0") int page,
+                              Model model) {
+        int pageSize =6;
+        Page<Player> playerPage = playerService.getAll(PageRequest.of(page, pageSize));
+
+        model.addAttribute("players", playerPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", playerPage.getTotalPages());
+        return "player/list";
     }
+
 
     @GetMapping("/players/{code}")
     public String viewPlayer(@PathVariable("code") Integer code, Model model) {
@@ -61,5 +66,28 @@ public class PlayerController {
         playerService.save(player);
         redirectAttributes.addFlashAttribute("mess", "Thêm cầu thủ thành công");
         return "redirect:/players";
+    }
+
+    @GetMapping("/players/search")
+    public String searchPlayers(@RequestParam(required = false) String keyword,
+                                @RequestParam(required = false) String startDate,
+                                @RequestParam(required = false) String endDate,
+                                @RequestParam(defaultValue = "0") int page,
+                                Model model) {
+
+        int pageSize = 6;
+        LocalDate start = (startDate != null && !startDate.isEmpty()) ? LocalDate.parse(startDate) : null;
+        LocalDate end = (endDate != null && !endDate.isEmpty()) ? LocalDate.parse(endDate) : null;
+
+        Page<Player> playerPage = playerService.searchByNameAndDobRange(keyword, start, end, PageRequest.of(page, pageSize));
+
+        model.addAttribute("players", playerPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", playerPage.getTotalPages());
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+
+        return "player/list";
     }
 }
