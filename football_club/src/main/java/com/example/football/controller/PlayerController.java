@@ -1,14 +1,16 @@
 package com.example.football.controller;
 
+import com.example.football.dto.PlayerDto;
 import com.example.football.entity.Player;
-import com.example.football.entity.Team;
 import com.example.football.service.PlayerService;
 import com.example.football.service.TeamService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,7 +33,7 @@ public class PlayerController {
     @GetMapping("/players")
     public String listPlayers(@RequestParam(defaultValue = "0") int page,
                               Model model) {
-        int pageSize =6;
+        int pageSize = 6;
         Page<Player> playerPage = playerService.getAll(PageRequest.of(page, pageSize));
 
         model.addAttribute("players", playerPage.getContent());
@@ -39,7 +41,6 @@ public class PlayerController {
         model.addAttribute("totalPages", playerPage.getTotalPages());
         return "player/list";
     }
-
 
     @GetMapping("/players/{code}")
     public String viewPlayer(@PathVariable("code") Integer code, Model model) {
@@ -53,25 +54,50 @@ public class PlayerController {
         }
     }
 
-
     @GetMapping("/players/delete/{code}")
-    public String deletePlayer(@PathVariable("code") Integer code, Model model) {
+    public String deletePlayer(@PathVariable("code") Integer code) {
         playerService.delete(code);
         return "redirect:/players";
     }
 
+    
     @GetMapping("/players/add")
-    public String addPlayer(Model model){
-        model.addAttribute("player", new Player());
+    public String addPlayerForm(Model model) {
+        model.addAttribute("player", new PlayerDto());
         model.addAttribute("teams", teamService.getAll());
         return "player/add";
     }
+
     @PostMapping("/players/add")
-    public String addPlayer(@ModelAttribute("player") Player player, RedirectAttributes redirectAttributes){
+    public String addPlayer(@Valid @ModelAttribute("player") PlayerDto playerDto,
+                            BindingResult result,
+                            RedirectAttributes redirectAttributes,
+                            Model model) {
+
+        // Tính tuổi
+        int age = playerDto.getAge();
+        if (age < 16 || age > 100) {
+            result.rejectValue("dob", "error.player", "Tuổi phải từ 16 đến 100");
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("teams", teamService.getAll());
+            return "player/add";
+        }
+
+        Player player = new Player();
+        player.setName(playerDto.getName());
+        player.setDob(playerDto.getDob());
+        player.setExperience(String.valueOf(playerDto.getExperience()));
+        player.setPosition(playerDto.getPosition());
+        player.setImage(playerDto.getImage());
+        player.setTeam(playerDto.getTeam());
+
         playerService.save(player);
-        redirectAttributes.addFlashAttribute("mess", "Thêm cầu thủ thành công");
+        redirectAttributes.addFlashAttribute("mess", "Thêm cầu thủ thành công!");
         return "redirect:/players";
     }
+
 
     @GetMapping("/players/search")
     public String searchPlayers(@RequestParam(required = false) String keyword,
@@ -95,5 +121,4 @@ public class PlayerController {
 
         return "player/list";
     }
-
 }
