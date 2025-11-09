@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/header :: head">
+  <style>
+    .player-detail-img {
+      width: 100%;
+      height: auto;
+      /* SỬA ĐỔI: Giảm chiều cao tối đa từ 450px xuống 350px
+        (Bạn có thể chỉnh thành 300px nếu muốn nhỏ hơn nữa)
+      */
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
+
+<div class="container my-4">
+  <h2 class="mb-4">⚽ Thông tin cầu thủ</h2>
+
+  <div class="row">
+
+    <div class="col-md-5 mb-3">
+      <img th:src="${player.image}"
+           th:alt="${player.name}"
+           class="player-detail-img shadow-sm" />
+    </div>
+
+    <div class="col-md-7">
+
+      <h3 class="display-6" th:text="${player.name}">Tên cầu thủ</h3>
+      <hr>
+      <ul class="list-group list-group-flush fs-5">
+        <li class="list-group-item d-flex justify-content-between">
+          <strong>Ngày sinh:</strong>
+          <span th:text="${player.dob}"></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <strong>Vị trí:</strong>
+          <span th:text="${player.position}" class="badge bg-primary rounded-pill"></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <strong>Kinh nghiệm:</strong>
+          <span th:text="${player.experience}"></span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <strong>Đội bóng:</strong>
+          <span th:text="${player.team.teamName}" class="badge bg-secondary rounded-pill"></span>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <div class="mt-4">
+    <a href="/players" class="btn btn-outline-secondary">
+      &larr; Quay lại danh sách
+    </a>
+  </div>
+
+</div>
+<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>
