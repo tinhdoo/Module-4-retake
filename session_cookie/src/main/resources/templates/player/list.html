@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/header :: head">
+    <style>
+        .player-card-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            border-top-left-radius: .5rem;
+            border-top-right-radius: .5rem;
+        }
+
+        .card {
+            overflow: hidden;
+        }
+
+        .card-body {
+            min-height: 120px;
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
+
+<div class="container">
+    <h2 class="mb-4">Danh sách cầu thủ</h2> <div class="row">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Danh sách cầu thủ (Kiểu Grid)</h2>
+            <div>
+                <a th:href="@{/players/set-view(viewMode='list')}" class="btn btn-outline-primary">Xem kiểu Bảng</a>
+            </div>
+        </div>
+
+    </div>
+    <div th:each="player, status : ${players}" class="col-lg-4 col-md-6 mb-4">
+
+        <div class="card h-100 shadow-sm"> <img th:src="${player.image}"
+                                                th:alt="${player.name}"
+                                                class="card-img-top player-card-img" /> <div class="card-body">
+            <h5 class="card-title" th:text="${player.name}">Họ tên cầu thủ</h5>
+            <p class="card-text mb-1">
+                <strong>Vị trí:</strong>
+                <span th:text="${player.position}">Vị trí</span>
+            </p>
+            <p class="card-text text-muted">
+                <strong>Mã:</strong>
+                <span th:text="${player.code}">Mã</span>
+            </p>
+        </div>
+
+            <div class="card-footer bg-white border-top-0 pt-0">
+                <a th:href="@{/players/{code}(code=${player.code})}" class="btn btn-info btn-sm me-2">Chi tiết</a>
+                <a th:href="@{/players/delete/{code}(code=${player.code})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Xóa cầu thủ này?')">Xóa</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-4">
+        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+            <a class="page-link" th:href="@{/players(page=${currentPage - 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">«</a>
+        </li>
+
+        <li class="page-item"
+            th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+            th:classappend="${i == currentPage} ? 'active'">
+            <a class="page-link"
+               th:text="${i + 1}"
+               th:href="@{/players(page=${i}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}"></a>
+        </li>
+
+        <li class="page-item"
+            th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+            <a class="page-link" th:href="@{/players(page=${currentPage + 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">»</a>
+        </li>
+    </ul>
+</nav>
+</div>
+
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
