@@ -59,6 +59,8 @@ public class PlayerController {
         Cookie viewModeCookie = new Cookie("viewMode", viewMode);
         viewModeCookie.setMaxAge(30 * 24 * 60 * 60);
         viewModeCookie.setPath("/");
+        viewModeCookie.setHttpOnly(true);
+        viewModeCookie.setSecure(true);
 
         response.addCookie(viewModeCookie);
 
